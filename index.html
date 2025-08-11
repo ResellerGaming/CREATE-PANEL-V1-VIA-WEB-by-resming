@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Panel Bot Gaming</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background: #111;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    max-width: 460px;
+    width: 95%;
+    animation: fadeIn 0.5s ease;
+    text-align: center;
+  }
+  h2, h3 {
+    color: #ff073a;
+    text-shadow: 0 0 10px #ff073a;
+    margin-bottom: 20px;
+  }
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    color: #ccc;
+    text-align: left;
+  }
+  input, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 2px solid #ff073a;
+    border-radius: 10px;
+    background: #000;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s;
+  }
+  input:focus, select:focus {
+    box-shadow: 0 0 12px #ff073a;
+  }
+  button {
+    width: 100%;
+    background: #ff073a;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 0 12px #ff073a;
+    transition: 0.3s;
+    margin-top: 10px;
+  }
+  button:hover {
+    background: #ff304f;
+    box-shadow: 0 0 20px #ff073a;
+  }
+  .hidden { display: none; }
+  .info-box {
+    background: #1c1c1c;
+    border: 1px solid #ff073a;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 14px;
+    color: #ccc;
+    text-align: left;
+  }
+  img.chibi-bot {
+    width: 90px;
+    display: block;
+    margin: 0 auto 15px;
+    filter: drop-shadow(0 0 6px #ff073a);
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Loading Spinner */
+  .spinner {
+    border: 5px solid #333;
+    border-top: 5px solid #ff073a;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 0.8s linear infinite;
+    margin: 20px auto;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Success & Error Message */
+  .success-msg {
+    color: #00ff85;
+    text-shadow: 0 0 10px #00ff85;
+    font-size: 18px;
+    margin: 15px 0;
+  }
+  .error-msg {
+    color: #ff073a;
+    text-shadow: 0 0 10px #ff073a;
+    font-size: 18px;
+    margin: 15px 0;
+  }
+</style>
+</head>
+<body>
+
+<audio autoplay loop>
+  <source src="https://files.catbox.moe/oqxhib.mp3" type="audio/mp3">
+</audio>
+
+<div class="container">
+
+  <img src="https://cdn-icons-png.flaticon.com/512/4712/4712100.png" alt="Chibi Bot" class="chibi-bot">
+  <h2>Reseller Panel</h2>
+  <h2>by Reseller Gaming</h2>
+  <p>https://t.me/ResellerGamingoffcial</p>
+
+  <!-- Step 1: Login -->
+  <div id="step1">
+    <label>Username:</label>
+    <input type="text" id="username" placeholder="Masukkan username kamu" required>
+
+    <label>Password:</label>
+    <input type="password" id="password" placeholder="Masukkan password..." required>
+
+    <label>Pilih Paket RAM:</label>
+    <select id="paket">
+      <option value="">-- Pilih Paket --</option>
+      <option value="1gb">1GB</option>
+      <option value="2gb">2GB</option>
+      <option value="3gb">3GB</option>
+      <option value="4gb">4GB</option>
+      <option value="5gb">5GB</option>
+      <option value="6gb">6GB</option>
+      <option value="7gb">7GB</option>
+      <option value="8gb">8GB</option>
+      <option value="9gb">9GB</option>
+      <option value="10gb">10GB</option>
+      <option value="unli">Unlimited</option>
+    </select>
+      
+    <button onclick="login()">Login & Buat Panel</button>
+  </div>
+
+  <!-- Step Loading -->
+  <div id="loadingStep" class="hidden">
+    <div class="spinner"></div>
+    <p>Sedang membuat panel kamu...</p>
+  </div>
+
+  <!-- Step Success -->
+  <div id="step2" class="hidden">
+    <h3 class="success-msg">✅ Panel Berhasil Dibuat!</h3>
+    <div class="info-box">
+      <p><b>Email:</b> <span id="email"></span></p>
+      <p><b>Username:</b> <span id="uname"></span></p>
+      <p><b>Password:</b> <span id="pass"></span></p>
+      <p><b>Link Login:</b> <a href="https://dieeonlypanelprivate.syahxmasvill.my.id" target="_blank" style="color:#ff073a;">Klik di sini</a></p>
+      <p><b>Paket RAM:</b> <span id="ram"></span></p>
+    </div>
+    <button onclick="goBack()">⬅ Kembali</button>
+  </div>
+
+  <!-- Step Error -->
+  <div id="errorStep" class="hidden">
+    <h3 class="error-msg">❌ Gagal Membuat Panel!</h3>
+    <p id="errorText"></p>
+    <button onclick="goBack()">⬅ Kembali</button>
+  </div>
+
+</div>
+
+<script>
+const hargaPaket = {
+  "1gb": { ram: 1000, disk: 1000, cpu: 40 },
+  "2gb": { ram: 2000, disk: 1000, cpu: 60 },
+  "3gb": { ram: 3000, disk: 2000, cpu: 80 },
+  "4gb": { ram: 4000, disk: 2000, cpu: 100 },
+  "5gb": { ram: 5000, disk: 3000, cpu: 120 },
+  "6gb": { ram: 6000, disk: 3000, cpu: 140 },
+  "7gb": { ram: 7000, disk: 4000, cpu: 160 },
+  "8gb": { ram: 8000, disk: 4000, cpu: 180 },
+  "9gb": { ram: 9000, disk: 5000, cpu: 200 },
+  "10gb": { ram: 10000, disk: 5000, cpu: 220 },
+  "unli": { ram: 0, disk: 0, cpu: 0 }
+};
+
+function goBack() {
+  document.getElementById('step1').classList.remove('hidden');
+  document.getElementById('loadingStep').classList.add('hidden');
+  document.getElementById('step2').classList.add('hidden');
+  document.getElementById('errorStep').classList.add('hidden');
+}
+
+async function login() {
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const paket = document.getElementById('paket').value;
+
+  if (!username || !password || !paket) return alert('Isi semua data terlebih dahulu!');
+  if (password !== 'buyresellerpanelv1byresellergaming') return alert('Password salah!');
+
+  document.getElementById('step1').classList.add('hidden');
+  document.getElementById('loadingStep').classList.remove('hidden');
+
+  const conf = hargaPaket[paket];
+  
+  try {
+    const res = await fetch(`https://api.nvidiabotz.xyz/pterodactyl/addpanel?domain=https://srverprivat.cfxcloud.com&plta=ptla_FTGiQXFL79P2oNZvVVQtIEhnpSc5paZhY8tCHfyeYah&username=${username}&disk=${conf.disk}&cpu=${conf.cpu}`);
+    const data = await res.json();
+
+    if (data && data.user) {
+      document.getElementById('loadingStep').classList.add('hidden');
+      document.getElementById('step2').classList.remove('hidden');
+
+      document.getElementById('email').innerText = data.user.attributes.email;
+      document.getElementById('uname').innerText = data.user.attributes.username;
+      document.getElementById('pass').innerText = data.user.attributes.username;
+      document.getElementById('ram').innerText = paket.toUpperCase();
+    } else {
+      throw new Error("Respon API tidak sesuai");
+    }
+  } catch (err) {
+    document.getElementById('loadingStep').classList.add('hidden');
+    document.getElementById('errorStep').classList.remove('hidden');
+    document.getElementById('errorText').innerText = err.message;
+  }
+}
+</script>
+
+</body>
+  </html>
