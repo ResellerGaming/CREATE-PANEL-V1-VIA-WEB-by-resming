@@ -217,7 +217,7 @@ async function login() {
   const paket = document.getElementById('paket').value;
 
   if (!username || !password || !paket) return alert('Isi semua data terlebih dahulu!');
-  if (password !== 'ResellerPanelByResming#2025!') return alert('Password salah!');
+  if (password !== 'Re$ellerPanelByRe$ming!88') return alert('Password salah!');
 
   document.getElementById('step1').classList.add('hidden');
   document.getElementById('loadingStep').classList.remove('hidden');
@@ -225,7 +225,7 @@ async function login() {
   const conf = hargaPaket[paket];
   
   try {
-    const res = await fetch(`https://api.nvidiabotz.xyz/pterodactyl/addpanel?domain=https://srverprivat.cfxcloud.com&plta=ptla_FTGiQXFL79P2oNZvVVQtIEhnpSc5paZhY8tCHfyeYah&username=${username}&disk=${conf.disk}&cpu=${conf.cpu}`);
+    const res = await fetch(`https://api.nvidiabotz.xyz/pterodactyl/addpanel?domain=https://kellstrnorusuh.chizyy.my.id/&plta=ptla_OtN5rm21pkPSJaLSCoycu9mxWzzbBblUmoFTbW4dnkP&username=${username}&disk=${conf.disk}&cpu=${conf.cpu}`);
     const data = await res.json();
 
     if (data && data.user) {
